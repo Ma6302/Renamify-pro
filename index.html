@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Renamify Pro</title>
+    <!-- 移除 CDN 引用，避免无网环境卡顿，实际样式已由 Vite 打包 -->
+    <!-- 如果你确实需要 Tailwind CDN 作为兜底，请确保网络通畅，但推荐在生产环境移除 -->
+    
+    <!-- SheetJS for Excel parsing -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
+    <style>
+      body {
+        font-family: 'Segoe UI', 'Roboto', sans-serif;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent; 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1; 
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8; 
+      }
+      .dark ::-webkit-scrollbar-thumb {
+        background: #4b5563;
+      }
+      .dark ::-webkit-scrollbar-thumb:hover {
+        background: #6b7280;
+      }
+
+      /* Animation for rule builder */
+      @keyframes popIn {
+        0% { transform: scale(0.9); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+      }
+      .animate-pop-in {
+        animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      /* --- Toggle Switch CSS --- */
+      .toggle-switch { width: 50px; height: 28px; position: relative; }
+      .switch-label { display: block; width: 100%; height: 100%; cursor: pointer; }
+      .toggle-switch input { display: none; }
+      .slider { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: #e5e7eb; transition: 0.4s; border-radius: 34px; border: 2px solid #d1d5db; }
+      .slider::before { position: absolute; content: ""; height: 20px; width: 20px; left: 2px; bottom: 2px; background-color: white; transition: 0.4s; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+      .checkbox:checked + .slider { background-color: #1f2937; border-color: #1f2937; }
+      .checkbox:checked + .slider::before { transform: translateX(22px); background-color: transparent; box-shadow: inset -6px -3px 0px 0px #ffffff; }
+
+      /* --- Custom iOS Checkbox CSS --- */
+      .ios-checkbox { display: inline-block; position: relative; cursor: pointer; width: 20px; height: 20px; -webkit-tap-highlight-color: transparent; }
+      .ios-checkbox input { display: none; }
+      .checkbox-wrapper { width: 100%; height: 100%; position: relative; }
+      .checkbox-bg { width: 100%; height: 100%; background-color: #f3f4f6; border-radius: 6px; transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); border: 2px solid #d1d5db; }
+      .dark .checkbox-bg { background-color: #374151; border-color: #4b5563; }
+      .checkbox-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.5); width: 12px; height: 12px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); color: white; }
+      .check-path { stroke-dasharray: 40; stroke-dashoffset: 40; transition: stroke-dashoffset 0.3s cubic-bezier(0.4, 0.0, 0.2, 1) 0.1s; }
+      .ios-checkbox input:checked + .checkbox-wrapper .checkbox-bg { transform: scale(1.05); border-color: transparent; }
+      .ios-checkbox.blue input:checked + .checkbox-wrapper .checkbox-bg { background-color: #2563eb; }
+      .ios-checkbox input:checked + .checkbox-wrapper .checkbox-icon { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+      .ios-checkbox input:checked + .checkbox-wrapper .check-path { stroke-dashoffset: 0; }
+    </style>
+    <!-- 修复 importmap，指向本地 node_modules 或 CDN -->
+    <script type="module">
+       // 这里 Vite 会自动处理 import，通常不需要手动写 importmap，除非你没用打包工具
+       // 为了安全起见，这里保持为空或移除，依赖 Vite 的处理
+    </script>
+    <!-- 【关键修改】改为相对路径 ./ -->
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
